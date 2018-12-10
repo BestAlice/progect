@@ -11,43 +11,34 @@ class Folser():
     
 
 class File:
-    def __init__(self, name, resolution):
-        self.name_file = name + '.' + resolution
-        self.coping = []
-        self.file()
+    def __init__(self, name):
+        self.name_file = name
+        self.file = open(self.name_file, 'r')
+        self.copy = open('copy.txt', 'w')
 
-    def file(self):
-        if os.path.isfile(self.name_file):
-            self.f = open(self.name_file, 'r')
-        else:
-            self.f = open(self.name_file, 'w')
-            self.f.close()
-            self.f = open(self.name_file, 'r')
+    def content_file(self):
+        print(self.file.read())
 
-    def content(self):
-        self.file()
-        print(self.f.read())
-
-    def copy_file(self, row):
-         self.coping.append(row)
-         print(coping)
+    def copy_file(self):
+        self.copy.write(self.file.read())
+        self.copy.close()
+        
          
-    def cutout(self):
-        self.file()
+    def cutout_file(self):
         for row in self.f.read():
             copy_file(row)
         self.f.close()
         os.remove('my_file.txt')
         #os.rmdir('pap') удаляет папку
 
-    def insert(self):
+    def insert_file(self):
         f = open('pap/' + self.name_file, 'w')
         for row in self.coping.read():
             f.write(row)
         f.close()
         
     
+if __name__ == '__main__':
+    filyk = File('my_file.txt')
+    filyk.copy_file()        
 
-fold = File('my_file','txt')
-fold.cutout()
-fold.copy()
