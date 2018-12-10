@@ -11,31 +11,34 @@ class Folder():
         self.folder = open(name, 'r')
         self.folder_files = self.folder.readlines()
         self.files_sp_normal =  list(map(lambda x: x[:-1], self.folder_files))
+        # имена без \n в конце
         self.copy = open('copy.txt', 'w')
         self.update()
 
     def del_folder(self, del_folder):
         self.folder = open(self.folder_name, 'w')
-        for names in self.files_sp_normal:
+        for names in self.files_sp_normal: # действует по принципу:
+                                           #отчисти и вставь всё, кроме удалённого файла
             if names != del_folder:
                 self.folder.write(names + '\n')
         self.folder.close()
-        os.remove(f"{del_folder}.txt")
+        os.remove(f"{del_folder}.txt") # удаляет файл txt папки 
         self.update()
 
     def jump_folder(self, name_next_folder):
-        if name_next_folder in self.files_sp_normal:
+        if name_next_folder in self.files_sp_normal: # проверка наличия в данной папке
             self.folder.close()
             self.copy.close()
             way.append(name_next_folder)
             self.__init__(f'{name_next_folder}.txt')
+            # весь код этой функции перезапускает init из новой папки
         else:
             print('Невозможно')
 
     def rerurn_in_folder_up(self):
         self.folder.close()
         self.copy.close()
-        if len(way) > 1:
+        if len(way) > 1: # проверка, что мы не в папке D
             del way[-1]
             self.__init__(f'{way[-1]}.txt')
         else:
@@ -43,6 +46,7 @@ class Folder():
 
     def create_folder(self, new_name):
         new_name = self.helper_insert([new_name])[0]
+        # эксплуатирую чужую вспомогательную функцию для проверки имени на оригинальность
         self.folder = open(self.folder_name, 'a')
         self.folder.write(new_name + '\n')
         self.new = open(f'{new_name}.txt', 'w')
@@ -50,12 +54,14 @@ class Folder():
         self.update()
 
     def copy_folder(self, name_copy):
-        if name_copy == '-all':
+        if name_copy == '-all':  
             name_copy = self.files_sp_normal
         self.copy = open('copy.txt', 'w')
         if type(name_copy) == str: 
             self.copy.write(name_copy)
         elif type(name_copy) == dir:
+        # если будем переносить несколько папок,
+        #хотя надо бы сделать единую функцию для копирования и папок, и файлов 
             for name in name_copy:
                 self.copy.write(name + '\n')
         self.copy.close()
@@ -73,14 +79,14 @@ class Folder():
         self.copy = open('copy.txt', 'w')
         self.update()
 
-    def helper_insert(self, spisok): # обработка одинаковых имён
+    def helper_insert(self, spisok): # обработка одинаковых имён(не советую разбираться)
         self.folder = open(self.folder_name)
         sp_new_names = []
         for name in spisok:
             i = 1
             new_name = name
             while new_name in self.files_sp_normal:
-                new_name = name + str(i)
+                new_name = name + '_' + str(i)
                 i += 1
             if name != new_name: 
                 new_folder = open(f'{new_name}.txt', 'w')
@@ -95,7 +101,7 @@ class Folder():
         copy_folder(copy_folder)
         del(self.copy_folder) #должно срабатывать после копирования
 
-    def sorting(self):
+    def sorting(self): # чтобы все имена были по алфавиту
         self.folder = open(self.folder_name, 'r')
         self.folder_files = self.folder.readlines()
         self.folder_files.sort()
