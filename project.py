@@ -7,9 +7,9 @@ class Folder():
         global way
         self.folder_name = name
         self.folder = open(name)
-        self.folder_files = self.folder.readlines()
+        self.folder_files = self.folder.readlines() # вот список всего, что есть в папке
         self.files_sp_normal =  list(map(lambda x: x[:-1], self.folder_files))
-        # имена без \n в конце
+        # тоже, что и self.solder_files, только имена без \n в конце
         self.copy = open('copy.txt', 'w')
         self.sp_files = []
         self.update()
