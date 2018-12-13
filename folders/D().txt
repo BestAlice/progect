@@ -1,4 +1,4 @@
 file_1.txt
 file_2.txt
-my_file.txt
+new_papka
 papka
