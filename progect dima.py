@@ -5,19 +5,12 @@ way = ['', 'D']
 class Folder():
     def __init__(self, name):
         global way
+        self.folder_name = name
         self.full_name = f'folders/{name}({way[-2]}).txt'
         self.folder = open(self.full_name)
         self.folder_files = self.folder.readlines() # вот список всего, что есть в папке
         self.files_sp_normal =  list(map(lambda x: x[:-1], self.folder_files))
         # тоже, что и self.solder_files, только имена без \n в конце
-        if '(' in name and ')' in name:
-            normal_name = ''
-            for i in name:
-                if i == '(':
-                    break
-                normal_name += i
-            name = normal_name
-        self.folder_name = name
         self.sp_files = []
         self.copy = open('copy.txt', 'r')
         self.update()
