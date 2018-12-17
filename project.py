@@ -49,13 +49,13 @@ class Folder():
         self.copy.close()
         self.update()
 
-    def del_folder(self, del_folder):
-        if del_folder == '-all':  
-            del_folder = self.files_sp_normal 
+    def del_folder(self, del_folders):
+        if del_folders == '-all':  
+            del_folders = self.files_sp_normal 
         for names in self.files_sp_normal:
-            if names in del_folder:
+            if names in del_folders:
                 if not '.txt' in names:
-                    self.folder.close()
+                    self.folders.close()
                     self.jump_folder(names)
                     self.del_folder('-all')
                     self.return_in_folder_up()
@@ -64,13 +64,13 @@ class Folder():
                     t = open(f'files/{names}(' + '-'.join(way) + ").txt", 'w')
                     t.close()
                     os.remove(f'files/{names}(' + '-'.join(way) + ").txt")
-        self.folder = open(self.full_name, 'w')
+        self.folders = open(self.full_name, 'w')
         for names in self.files_sp_normal:
-            if not names in del_folder:
+            if not names in del_folders:
                 self.folder.write(names + '\n')
         self.folder.close()
-        print(list(filter(lambda x: not '.txt' in x, del_folder)))
-        for one_folder in list(filter(lambda x: not '.txt' in x, del_folder)):
+        print(list(filter(lambda x: not '.txt' in x, del_folders)))
+        for one_folder in list(filter(lambda x: not '.txt' in x, del_folders)):
             os.remove(f"folders/{one_folder}(" + '-'.join(way) + ").txt") 
         self.update()
 
