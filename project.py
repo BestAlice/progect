@@ -71,11 +71,11 @@ class Folder():
         self.folder.close()
         print(list(filter(lambda x: not '.txt' in x, del_folder)))
         for one_folder in list(filter(lambda x: not '.txt' in x, del_folder)):
-            os.remove(f"folders/{one_folder}(" + '-'.join(way) + ").txt") # удаляет файл txt папки 
+            os.remove(f"folders/{one_folder}(" + '-'.join(way) + ").txt") 
         self.update()
 
     def jump_folder(self, name_next_folder):
-        if name_next_folder in self.files_sp_normal: # проверка наличия в данной папке
+        if name_next_folder in self.files_sp_normal:
             self.folder.close()
             way.append(name_next_folder)
             self.__init__(f'{name_next_folder}')
@@ -126,7 +126,7 @@ class Folder():
                     new_files.close()
         self.update()
                 
-    def name_tester(self, test_name): # обработка одинаковых имён(не советую разбираться)
+    def name_tester(self, test_name):
         self.folder = open(self.full_name)
         sp_new_names = []
         i = 1
@@ -136,7 +136,7 @@ class Folder():
             i += 1
         return new_name
         
-    def cutout_folder(self, name_cutout):  # не проверено
+    def cutout_folder(self, name_cutout):  # не работает
         copy_folder(copy_folder)
         del(self.copy_folder) #должно срабатывать после копирования
 
