@@ -229,8 +229,48 @@ class Folder():
 
     
 if __name__ == '__main__':
-    D = Folder('D')
-    D.print_folder()
+    sp_comand = ['Копировать', 'Удалить', 'Содержимое',
+                 'Переместиться', 'Вернуться', 'Создать', 'Вставить',
+                 'Закрыть программу']
+    print('Добро пожаловать')
+    print('Шаблон ввода: (команда) (имя файла)')
+    print('Список команд: Копировать, Удалить, Содержимое,'
+          'Переместиться, Вернуться, Создать, Вставить, Закрыть программу')
+    print('Изначально вы находитесь в папке D')
+    D = Folder('D')s
+    stroka = str(input())
+    while stroka != 'Закрыть программу':
+        stroka = stroka.split()
+        if stroka[0] not in sp_comand:
+            print('Нет такой команды')
+        if stroka[0] == 'Копировать' and '.txt' in stroka[1]:
+            D.copy_file(stroka[1])
+        elif stroka[0] == 'Удалить' and '.txt' not in stroka[1]:
+            D.del_folder(stroka[1])
+        elif stroka[0] == 'Содержимое' and '.txt' in stroka[1]:
+            D.content_file(stroka[1][:stroka[1].index('.txt')])
+        elif stroka[0] == 'Содержимое' and '.txt' not in stroka[1]:
+            D.print_folder()
+        elif stroka[0] == 'Переместиться' and '.txt' not in stroka[1]:
+            D.jump_folder(stroka[1])
+        elif stroka[0] == 'Вернуться' and '.txt' not in stroka[1]:
+            D.return_in_folder_up()
+        elif stroka[0] == 'Создать' and '.txt' in stroka[1]:
+            D.create_file(stroka[1])
+        elif stroka[0] == 'Создать' and '.txt' not in stroka[1]:
+            D.create_folder(stroka[1])
+        elif stroka[0] == 'Вставить' and '.txt' in stroka[1]:
+            D.insert_file(stroka[1])
+        elif stroka[0] == 'Вставить' and '.txt' not in stroka[1]:
+            D.insert_arxiv(way[-1])
+        elif stroka[0] == 'Вырерать' and '.txt' in stroka[1]:
+            D.copy_file(stroka[1])
+        elif stroka[0] == 'Вырезать' and '.txt' not in stroka[1]:
+            D.copy_arxiv(stroka[1])
+            D.del_folder(stroka[1])
+        stroka = str(input())
+    
+
     
     
     
