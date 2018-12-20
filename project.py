@@ -1,6 +1,6 @@
 import os
 
-way = ['', 'D']
+way = ['D']
       
 class Folder():
     def __init__(self, name):

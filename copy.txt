@@ -1,5 +1,2 @@
-papka folders/papka(-D).txt 1
-file1.txt files/file1.txt(-D-papka).txt 2
-new.txt files/new.txt(-D-papka).txt 2
-papka_12 folders/papka_12(-D-papka).txt 2
-Olega.txt files/Olega.txt(-D-papka-papka_12).txt 3
+papka_12 folders/papka_12(D-papka).txt 1
+Olega.txt files/Olega.txt(D-papka-papka_12).txt 2
