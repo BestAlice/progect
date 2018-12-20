@@ -1,6 +1,6 @@
 import os
 
-way = ['', 'D']
+way = ['D']
       
 class Folder():
     def __init__(self, name):
@@ -127,7 +127,7 @@ class Folder():
                                       '-'.join(local_way[-i+1:]) + ").txt",'a')
                     old_files = open(file_way).readlines()
                     for j in range(len(old_files)):
-                        new_files.write(old_files[j] + '\n')
+                        new_files.write(old_files[j])
                     new_files.close()
         self.update()
                 
