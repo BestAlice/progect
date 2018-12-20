@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 file123.txt
+=======
+1.txt
+>>>>>>> 4f844b3609639b6dd767de3866b568209e19fc15
 file_1.txt
 file_2.txt
 new_papka
 papka
+<<<<<<< HEAD
+=======
+papka_new
+>>>>>>> 4f844b3609639b6dd767de3866b568209e19fc15
