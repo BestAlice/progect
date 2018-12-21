@@ -56,7 +56,7 @@ class Folder():
 
     def del_folder(self, del_folders):
         if del_folders == '-all':  
-            del_folders = self.files_sp_normal 
+            del_folders = self.files_sp_normal
         for names in self.files_sp_normal:
             if names in del_folders:
                 if not '.txt' in names:
@@ -69,10 +69,13 @@ class Folder():
                     t = open(f'files/{names}(' + '-'.join(way) + ").txt", 'w')
                     t.close()
                     os.remove(f'files/{names}(' + '-'.join(way) + ").txt")
-                self.folder.replace(names + '\n', '')
-        self.folder = open(self.full_name, 'w')
-        self.folder.close()
-        self.update()
+                f = self.files_sp_normal
+                self.folder = open(self.full_name, 'w')
+                for i in f:
+                    if i != names:
+                        self.folder.write(i)
+                self.folder.close()
+                self.update()
 
 
     def jump_folder(self, name_next_folder):
@@ -266,7 +269,7 @@ class Folder():
         print('Шаблон ввода: (команда) (имя файла, если надо)')
         print('Список команд: Помощь, Копировать, Удалить, Содержимое, Инструкция,\n'
               'Переместиться(в папку, находящуюся в данной), Переход(при помощи пути),\n'
-              'Вернуться, Создать, Вставить, Открыть, Найти, Закрыть программу')
+              'Вернуться, Создать, Вставить, Открыть, Найти, Завершить')
         
 
     
@@ -274,12 +277,12 @@ if __name__ == '__main__':
     sp_comand = ['копировать', 'удалить', 'содержимое', 'помощь',
                  'инструкция', 'переход', 'переместиться', 'вернуться',
                  'создать', 'вставить','открыть', 'найти', 'переход',
-                 'закрыть программу']
+                 'завершить']
     print('Добро пожаловать')
     D = Folder('D')
     D.shablon() 
-    stroka = ''
-    while stroka != 'Закрыть программу':
+    stroka = ['']
+    while stroka[0] != 'завершить':
         try:
             print('-'* 50)
             D.print_folder()
@@ -289,9 +292,6 @@ if __name__ == '__main__':
                 print('Нет такой команды')
             if len(stroka) == 1: # думаю с этим будет проще. см Вставить для папок (Дима)
                 stroka.append('')
-            #if stroka[0] == 'копировать' and '.txt' in stroka[1]:#работает
-            #    D.copy_file(stroka[1])
-            # это можно удалить. мой copy_arxiv способен выполнить работу за него
             if stroka[0] == 'копировать' and '' != stroka[1]: 
                 copy_number = 1
                 copy_max = 1
@@ -301,8 +301,8 @@ if __name__ == '__main__':
                 D.global_jump(stroka[1])
             elif stroka[0] == 'найти' and '' != stroka[1]: 
                 D.find_file(stroka[1])
-            elif stroka[0] == 'удалить' and '.txt' not in stroka[1]:#удаляет файл, но не удаляет из списка
-                D.del_folder(f'/folders/{stroka[1]}')               # теперь удаляет (Дима)
+            elif stroka[0] == 'удалить' and '' != stroka[1]:#удаляет файл, но не удаляет из списка
+                D.del_folder(stroka[1:])               # теперь удаляет (Дима)
             elif stroka[0] == 'открыть' and '.txt' in stroka[1]:#работает для txt
                 place = stroka[1]
                 place = place[:place.index('.')]

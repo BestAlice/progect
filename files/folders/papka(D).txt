@@ -1,3 +1,0 @@
-file1.txt
-new.txt
-papka_12
