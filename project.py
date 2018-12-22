@@ -12,6 +12,7 @@ class Folder():
         self.folder = open(self.full_name)
         self.folder_files = self.folder.readlines() # вот список всего, что есть в папке
         self.files_sp_normal =  list(map(lambda x: x[:-1], self.folder_files))
+        print(self.files_sp_normal)
         # тоже, что и self.solder_files, только имена без \n в конце
         self.sp_files = []
         self.copy = open('copy.txt', 'r')
@@ -55,27 +56,25 @@ class Folder():
 
 
     def del_folder(self, del_folders):
-        if del_folders == '-all':  
+        self.folder = open(self.full_name, 'w')
+        self.folder.write('')
+        self.folder.close
+        if del_folders[0] == '-all':  
             del_folders = self.files_sp_normal
         for names in self.files_sp_normal:
             if names in del_folders:
                 if not '.txt' in names:
-                    self.folder.close()
                     self.jump_folder(names)
-                    self.del_folder('-all')
+                    self.del_folder(['-all'])
                     self.return_in_folder_up()
-                    os.remove(f'folders/{names}(' + '-'.join(way) + ").txt")
+                    os.remove(f'./folders/{names}(' + '-'.join(way) + ').txt')
                 else:
-                    t = open(f'files/{names}(' + '-'.join(way) + ").txt", 'w')
-                    t.close()
-                    os.remove(f'files/{names}(' + '-'.join(way) + ").txt")
-                f = self.files_sp_normal
-                self.folder = open(self.full_name, 'w')
-                for i in f:
-                    if i != names:
-                        self.folder.write(i)
+                    os.remove(f'./files/{names}(' + '-'.join(way) + ').txt')
+            else:
+                self.folder = open(self.full_name, 'a')
+                self.folder.write(names + '\n')
                 self.folder.close()
-                self.update()
+        self.update()
 
 
     def jump_folder(self, name_next_folder):
@@ -306,7 +305,7 @@ if __name__ == '__main__':
             elif stroka[0] == 'открыть' and '.txt' in stroka[1]:#работает для txt
                 place = stroka[1]
                 place = place[:place.index('.')]
-                os.startfile(f'files\{place}({way[-1]}).txt')
+                os.startfile(f'files\{place}.txt({way[-1]}).txt')
             elif stroka[0] == 'помощь' and '' == stroka[1]:
                 D.shablon()
             elif stroka[0] == 'инструкция' and '' == stroka[1]:
